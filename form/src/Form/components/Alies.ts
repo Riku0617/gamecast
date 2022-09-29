@@ -12,5 +12,7 @@ export type Props2 = Props & {
 }
 export type Props3 = Props2 & {
     homeTeamData: TeamList
+    awayTeamData: TeamList
+    ballPossession:boolean
 }
 export{}

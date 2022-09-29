@@ -1,0 +1,16 @@
+html,
+body {
+  height: 100%;
+}
+
+.form-signin {
+    text-align: center;
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    display: flex;
+    margin: auto;
+}
+.form-floating{
+    margin: 1em;
+}

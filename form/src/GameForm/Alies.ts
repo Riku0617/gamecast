@@ -1,21 +1,52 @@
 import { Drive } from "../Form/Alies"
 
 export type TeamList = {
+	id           :number
     CreatedAt:  string
     DeletedAt: string | null
     ID: number
-    Positions: Position[]
+    OffensePositions: OffensePosition[]
+    DefensePositions: DefensePosition[]
+    KickingPositions: KickingPosition[]
     UpdatedAt: string
     team_name: string
 }
 
-export type Position = {
-    TeamInfoID     :number
-	PositionName   :string 
-	Athletes       :Athlete[]
+export type OffensePosition = {
+	id           :number
+    teaminfo_id     :number
+	position_name   :string 
+	OffenseAthletes    :OffenseAthlete[]
+}
+export type DefensePosition = {
+	id             :number
+    teaminfo_id     :number
+	position_name    :string 
+	DefenseAthletes :DefenseAthlete[]
+}
+export type KickingPosition = {
+	id           :number
+    teaminfo_id     :number
+	position_name    :string 
+	KickingAthletes       :KickingAthlete[]
 }
 
-export type Athlete = {
+export type OffenseAthlete = {
+	id           :number
+    position_id  :number 
+	athlete_url  :string 
+	full_name    :string 
+	jersey      :string 
+}
+export type DefenseAthlete = {
+	id           :number
+    position_id  :number 
+	athlete_url  :string 
+	full_name    :string 
+	jersey      :string 
+}
+export type KickingAthlete = {
+	id           :number
     position_id  :number 
 	athlete_url  :string 
 	full_name    :string 
@@ -23,6 +54,7 @@ export type Athlete = {
 }
 
 export type Game = {
+	id           :number
 	hometeam:string
 	awayteam:string 
 	hometeam_score:number

@@ -37,6 +37,20 @@ func main() {
 	router.GET("/athlete", controllers.GetAthletes)
 	router.GET("/games/latest", controllers.GetLatestGame)
 
+	router.POST("/athletes/defense", controllers.PostDefenseAthlete)
+	router.POST("/athletes/offense", controllers.PostOffenseAthlete)
+	router.POST("/athletes/kicking", controllers.PostKickingAthlete)
+
+	router.POST("/positions/defense", controllers.PostDefensePosition)
+	router.POST("/positions/offense", controllers.PostOffensePosition)
+	router.POST("/positions/kicking", controllers.PostKickingPosition)
+
+	router.GET("/positions/offense", controllers.GetOffensePositions)
+	router.GET("/positions/defense", controllers.GetDefensePositions)
+	router.GET("/positions/kicking", controllers.GetKickingPositions)
+
+	router.GET("/athletes/offense", controllers.GetOffenseAthletes)
+
 	router.Run(":9091")
 }
 

@@ -13,6 +13,7 @@ const PassIsComplete:React.FC<Props2> = ({register,value})  => {
                       <option value="Complete">Complete</option>
                       <option value="Incomplete">Incomplete</option>
                       <option value="Interception">Interception</option>
+                      <option value="Sacked">Sacked</option>
                   </select>
           </>
         )

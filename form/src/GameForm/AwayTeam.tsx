@@ -15,7 +15,7 @@ const AwayTeam :React.FC<Props> = ({register,teamList}) => {
     return (
     <div>
         <div className="mx-2 mt-2"><h5>Away Team</h5></div>
-        <select {...register("awayteam")} className="col-10 col-sm-3">
+        <select key={2} {...register("awayteam")} className="col-10 col-sm-3">
             {teamNames}
         </select>
     </div>

@@ -72,11 +72,11 @@ type Play struct {
 
 type TeamInfo struct {
 	gorm.Model
-	TeamName  string `json:"team_name"`
-	Positions []Position
-	// OffensePositions []OffensePosition
-	// DefensePositions []DefensePosition
-	// KickingPositions []OffensePosition
+	TeamName string `json:"team_name"`
+	// Positions []Position
+	OffensePositions []OffensePosition
+	DefensePositions []DefensePosition
+	KickingPositions []KickingPosition
 }
 
 type Position struct {
@@ -86,26 +86,6 @@ type Position struct {
 	Athletes     []Athlete
 }
 
-//	type DefensePosition struct {
-//		gorm.Model
-//		TeamInfoID   uint   `json:"teaminfo_id"`
-//		PositionName string `json:"position_name"`
-//		Athletes     []Athlete
-//	}
-//
-//	type KickingPosition struct {
-//		gorm.Model
-//		TeamInfoID   uint   `json:"teaminfo_id"`
-//		PositionName string `json:"position_name"`
-//		Athletes     []Athlete
-//	}
-//
-//	type OffensePosition struct {
-//		gorm.Model
-//		TeamInfoID   uint   `json:"teaminfo_id"`
-//		PositionName string `json:"position_name"`
-//		Athletes     []Athlete
-//	}
 type Athlete struct {
 	gorm.Model
 	PositionID uint   `json:"position_id"`
@@ -114,24 +94,45 @@ type Athlete struct {
 	Jersey     string `json:"jersey"`
 }
 
-// type DefenseAthlete struct {
-// 	gorm.Model
-// 	PositionID uint   `json:"position_id"`
-// 	AthleteUrl string `json:"athlete_url"`
-// 	FullName   string `json:"full_name"`
-// 	Jersey     string `json:"jersey"`
-// }
-// type OffenseAthlete struct {
-// 	gorm.Model
-// 	PositionID uint   `json:"position_id"`
-// 	AthleteUrl string `json:"athlete_url"`
-// 	FullName   string `json:"full_name"`
-// 	Jersey     string `json:"jersey"`
-// }
-// type KickingAthlete struct {
-// 	gorm.Model
-// 	PositionID uint   `json:"position_id"`
-// 	AthleteUrl string `json:"athlete_url"`
-// 	FullName   string `json:"full_name"`
-// 	Jersey     string `json:"jersey"`
-// }
+type DefensePosition struct {
+	gorm.Model
+	TeamInfoID      uint   `json:"teaminfo_id"`
+	PositionName    string `json:"position_name"`
+	DefenseAthletes []DefenseAthlete
+}
+
+type KickingPosition struct {
+	gorm.Model
+	TeamInfoID      uint   `json:"teaminfo_id"`
+	PositionName    string `json:"position_name"`
+	KickingAthletes []KickingAthlete
+}
+
+type OffensePosition struct {
+	gorm.Model
+	TeamInfoID      uint   `json:"teaminfo_id"`
+	PositionName    string `json:"position_name"`
+	OffenseAthletes []OffenseAthlete
+}
+
+type DefenseAthlete struct {
+	gorm.Model
+	DefensePositionID uint   `json:"position_id"`
+	AthleteUrl        string `json:"athlete_url"`
+	FullName          string `json:"full_name"`
+	Jersey            string `json:"jersey"`
+}
+type OffenseAthlete struct {
+	gorm.Model
+	OffensePositionID uint   `json:"position_id"`
+	AthleteUrl        string `json:"athlete_url"`
+	FullName          string `json:"full_name"`
+	Jersey            string `json:"jersey"`
+}
+type KickingAthlete struct {
+	gorm.Model
+	KickingPositionID uint   `json:"position_id"`
+	AthleteUrl        string `json:"athlete_url"`
+	FullName          string `json:"full_name"`
+	Jersey            string `json:"jersey"`
+}

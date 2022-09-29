@@ -93,82 +93,82 @@ func PostAthlete(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, athlete)
 }
 
-// func PostDefensePosition(c *gin.Context) {
-// 	db := database.Db()
-// 	var defensePosition models.DefensePosition
-// 	c.BindJSON(&defensePosition)
-// 	// ポイント２
-// 	result := db.Model(&models.TeamInfo{}).Create(&defensePosition)
+func PostDefensePosition(c *gin.Context) {
+	db := database.Db()
+	var defensePosition models.DefensePosition
+	c.BindJSON(&defensePosition)
+	// ポイント２
+	result := db.Model(&models.DefensePosition{}).Create(&defensePosition)
 
-// 	if result.Error != nil {
-// 		log.Fatal(result.Error)
-// 		fmt.Println("CANNOT POST!")
-// 	}
-// 	c.IndentedJSON(http.StatusOK, defensePosition)
-// }
-// func PostKickingPosition(c *gin.Context) {
-// 	db := database.Db()
-// 	var kickingPosition models.KickingPosition
-// 	c.BindJSON(&kickingPosition)
-// 	// ポイント２
-// 	result := db.Model(&models.TeamInfo{}).Create(&kickingPosition)
+	if result.Error != nil {
+		log.Fatal(result.Error)
+		fmt.Println("CANNOT POST!")
+	}
+	c.IndentedJSON(http.StatusOK, defensePosition)
+}
+func PostKickingPosition(c *gin.Context) {
+	db := database.Db()
+	var kickingPosition models.KickingPosition
+	c.BindJSON(&kickingPosition)
+	// ポイント２
+	result := db.Model(&models.KickingPosition{}).Create(&kickingPosition)
 
-// 	if result.Error != nil {
-// 		log.Fatal(result.Error)
-// 		fmt.Println("CANNOT POST!")
-// 	}
-// 	c.IndentedJSON(http.StatusOK, kickingPosition)
-// }
-// func PostOffensePosition(c *gin.Context) {
-// 	db := database.Db()
-// 	var offensePosition models.OffensePosition
-// 	c.BindJSON(&offensePosition)
-// 	// ポイント２
-// 	result := db.Model(&models.TeamInfo{}).Create(&offensePosition)
+	if result.Error != nil {
+		log.Fatal(result.Error)
+		fmt.Println("CANNOT POST!")
+	}
+	c.IndentedJSON(http.StatusOK, kickingPosition)
+}
+func PostOffensePosition(c *gin.Context) {
+	db := database.Db()
+	var offensePosition models.OffensePosition
+	c.BindJSON(&offensePosition)
+	// ポイント２
+	result := db.Model(&models.OffensePosition{}).Create(&offensePosition)
 
-// 	if result.Error != nil {
-// 		log.Fatal(result.Error)
-// 		fmt.Println("CANNOT POST!")
-// 	}
-// 	c.IndentedJSON(http.StatusOK, offensePosition)
-// }
+	if result.Error != nil {
+		log.Fatal(result.Error)
+		fmt.Println("CANNOT POST!")
+	}
+	c.IndentedJSON(http.StatusOK, offensePosition)
+}
 
-// func PostKickingAthlete(c *gin.Context) {
-// 	db := database.Db()
-// 	var kickingAthlete models.KickingAthlete
-// 	c.BindJSON(&kickingAthlete)
-// 	// ポイント２
-// 	result := db.Model(&models.Position{}).Create(&kickingAthlete)
+func PostKickingAthlete(c *gin.Context) {
+	db := database.Db()
+	var kickingAthlete models.KickingAthlete
+	c.BindJSON(&kickingAthlete)
+	// ポイント２
+	result := db.Model(&models.KickingPosition{}).Create(&kickingAthlete)
 
-// 	if result.Error != nil {
-// 		log.Fatal(result.Error)
-// 		fmt.Println("CANNOT POST!")
-// 	}
-// 	c.IndentedJSON(http.StatusOK, kickingAthlete)
-// }
-// func PostDefenseAthlete(c *gin.Context) {
-// 	db := database.Db()
-// 	var defenseAthlete models.DefenseAthlete
-// 	c.BindJSON(&defenseAthlete)
-// 	// ポイント２
-// 	result := db.Model(&models.Position{}).Create(&defenseAthlete)
+	if result.Error != nil {
+		log.Fatal(result.Error)
+		fmt.Println("CANNOT POST!")
+	}
+	c.IndentedJSON(http.StatusOK, kickingAthlete)
+}
+func PostDefenseAthlete(c *gin.Context) {
+	db := database.Db()
+	var defenseAthlete models.DefenseAthlete
+	c.BindJSON(&defenseAthlete)
+	// ポイント２
+	result := db.Model(&models.DefensePosition{}).Create(&defenseAthlete)
 
-// 	if result.Error != nil {
-// 		log.Fatal(result.Error)
-// 		fmt.Println("CANNOT POST!")
-// 	}
-// 	c.IndentedJSON(http.StatusOK, defenseAthlete)
-// }
-// func PostOffenseAthlete(c *gin.Context) {
-// 	db := database.Db()
-// 	var offenseAthlete models.OffenseAthlete
-// 	c.BindJSON(&offenseAthlete)
-// 	// ポイント２
-// 	result := db.Model(&models.OffensePosition{}).Create(&offenseAthlete)
+	if result.Error != nil {
+		log.Fatal(result.Error)
+		fmt.Println("CANNOT POST!")
+	}
+	c.IndentedJSON(http.StatusOK, defenseAthlete)
+}
+func PostOffenseAthlete(c *gin.Context) {
+	db := database.Db()
+	var offenseAthlete models.OffenseAthlete
+	c.BindJSON(&offenseAthlete)
+	// ポイント２
+	result := db.Model(&models.OffensePosition{}).Create(&offenseAthlete)
 
-// 	if result.Error != nil {
-// 		log.Fatal(result.Error)
-// 		fmt.Println("CANNOT POST!")
-// 	}
-// 	c.IndentedJSON(http.StatusOK, offenseAthlete)
-// }
+	if result.Error != nil {
+		log.Fatal(result.Error)
+		fmt.Println("CANNOT POST!")
+	}
+	c.IndentedJSON(http.StatusOK, offenseAthlete)
+}

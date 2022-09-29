@@ -32,21 +32,24 @@ func Db() *gorm.DB {
 	db.AutoMigrate(&models.TeamInfo{})
 	db.AutoMigrate(&models.Position{})
 	db.AutoMigrate(&models.Athlete{})
-	// db.AutoMigrate(&models.OffensePosition{})
-	// db.AutoMigrate(&models.DefensePosition{})
-	// db.AutoMigrate(&models.KickingPosition{})
-	// db.AutoMigrate(&models.OffenseAthlete{})
-	// db.AutoMigrate(&models.KickingAthlete{})
-	// db.AutoMigrate(&models.DefenseAthlete{})
+	db.AutoMigrate(&models.OffensePosition{})
+	db.AutoMigrate(&models.DefensePosition{})
+	db.AutoMigrate(&models.KickingPosition{})
+	db.AutoMigrate(&models.OffenseAthlete{})
+	db.AutoMigrate(&models.KickingAthlete{})
+	db.AutoMigrate(&models.DefenseAthlete{})
 
 	//ポイント１
 	db.Model(&models.Drive{}).AddForeignKey("game_id", "games(game_id)", "CASCADE", "CASCADE")
 	db.Model(&models.Play{}).AddForeignKey("drive_id", "drives(drive_id)", "CASCADE", "CASCADE")
 	db.Model(&models.Position{}).AddForeignKey("teaminfo_id", "teaminfos(teaminfo_id)", "CASCADE", "CASCADE")
 	db.Model(&models.Athlete{}).AddForeignKey("position_id", "positions(position_id)", "CASCADE", "CASCADE")
-	// db.Model(&models.DefenseAthlete{}).AddForeignKey("position_id", "defensepositions(position_id)", "CASCADE", "CASCADE")
-	// db.Model(&models.OffenseAthlete{}).AddForeignKey("position_id", "offensepositions(position_id)", "CASCADE", "CASCADE")
-	// db.Model(&models.KickingAthlete{}).AddForeignKey("position_id", "kickingpositions(position_id)", "CASCADE", "CASCADE")
+	db.Model(&models.DefenseAthlete{}).AddForeignKey("defenseposition_id", "defensepositions(defenseposition_id)", "CASCADE", "CASCADE")
+	db.Model(&models.OffenseAthlete{}).AddForeignKey("offenseposition_id", "offensepositions(offenseposition_id)", "CASCADE", "CASCADE")
+	db.Model(&models.KickingAthlete{}).AddForeignKey("kickingposition_id", "kickingpositions(kickingposition_id)", "CASCADE", "CASCADE")
+	db.Model(&models.DefensePosition{}).AddForeignKey("teaminfo_id", "teaminfos(ID)", "CASCADE", "CASCADE")
+	db.Model(&models.OffensePosition{}).AddForeignKey("teaminfo_id", "teaminfos(ID)", "CASCADE", "CASCADE")
+	db.Model(&models.KickingPosition{}).AddForeignKey("teaminfo_id", "teaminfos(ID)", "CASCADE", "CASCADE")
 
 	return db
 }

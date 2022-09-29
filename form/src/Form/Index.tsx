@@ -16,7 +16,7 @@ type Props1 = {
 const Index:React.FC<Props1> = ({visible,homeTeam,awayTeam}) => {
 
     if(visible){return null}
-    console.log(homeTeam,"aa")
+    console.log(homeTeam,awayTeam,"pp")
 
     const { register ,handleSubmit,watch } = useForm<Play>();
 
@@ -48,18 +48,16 @@ const Index:React.FC<Props1> = ({visible,homeTeam,awayTeam}) => {
                     console.log(data["Value"]["awayteam"])
                 }).then(() => console.log("fetch gamedata")).then(() => { 
                 })
-                console.log("data")
             await fetch("http://localhost:9091/teaminfo/"+homeTeam, {method: 'GET'})
                         .then(res => res.json())
                         .then(async data => {
                             setHomeTeamData(data["Value"])
                         }).then(() => console.log("fetch home"))
-                        console.log("process")
             await fetch("http://localhost:9091/teaminfo/"+awayTeam, {method: 'GET'})
-                .then(res => res.json())
-                .then(async data => {
-                    setHomeTeamData(data["Value"])
-            }).then(() => console.log("fetch away"))
+                        .then(res => res.json())
+                        .then(async data => {
+                            setAwayTeamData(data["Value"])
+                        }).then(() => console.log("fetch away"))
             await fetch("http://localhost:9091/drives/latest", {method: 'GET'})
                 .then(res => res.json())
                 .then(async data => {
@@ -83,17 +81,22 @@ const Index:React.FC<Props1> = ({visible,homeTeam,awayTeam}) => {
                 </div>
                 <form onSubmit={handleSubmit(async(data) => {
                     // Initializer(plays,games,setGames);
-
-                    // await FetchGameData(setGameData);
-                    console.log(playAmount,1)
-
-                    AllProcessor({ data, ballPlace, ballPossession, ballOn, down, distance,setPlayAmount,setYardsDrived, gameData, setBallPlace, setBallPossession, setBallOn, setId, setDown, setDistance, setHomePoints, setAwayPoints })
-
-                    console.log(data.ball_place_result)
-                    console.log(playAmount)
+                    await fetch("http://localhost:9091/drives/latest",{
+                        method:"PUT",
+                        headers:{"Content-Type":"application/json"},
+                        body: JSON.stringify({
+                            amount_of_play: playAmount+1,
+                            yards_drived: yardsDrived + data.yards_gained,
+                        })
+                    }).then(() => {
+                        console.log(yardsDrived,"update drive!")
+                    })
 
                     setPlayAmount(prevPlays => prevPlays + 1)
                     setYardsDrived(prev => prev + data.yards_gained)
+
+                    AllProcessor({ data, ballPlace, ballPossession, ballOn, down, distance,setPlayAmount,setYardsDrived, gameData, setBallPlace, setBallPossession, setBallOn, setId, setDown, setDistance, setHomePoints, setAwayPoints })
+
                     data.drive_id = id
                     data.ball_on = ballOn
                     data.hometeam_points = homePoints
@@ -112,16 +115,7 @@ const Index:React.FC<Props1> = ({visible,homeTeam,awayTeam}) => {
                         if ( data.o_or_k === "FG"|| data.o_or_k === "TFP"){
                             setId(prevId => prevId + 1)}
                     })
-                    await fetch("http://localhost:9091/drives/latest",{
-                        method:"PUT",
-                        headers:{"Content-Type":"application/json"},
-                        body: JSON.stringify({
-                            amount_of_play: playAmount+1,
-                            yards_drived: yardsDrived + data.yards_gained,
-                        })
-                    }).then(() => {
-                        console.log(yardsDrived,"update drive!")
-                    })
+                    
 
                     // if ( data.o_or_k === "FG"|| data.o_or_k === "TFP"){
                     //     setId(prevId => prevId + 1)
@@ -138,22 +132,22 @@ const Index:React.FC<Props1> = ({visible,homeTeam,awayTeam}) => {
                     <BallTeam register={register}/>
                     <OorK register={register}/>
                     <PlayType register={register} value={watch()}/>
-                    <Passer register={register}  value={watch()}/>
+                    <Passer register={register}  value={watch()} homeTeamData={homeTeamData[0]} awayTeamData={awayTeamData[0]} ballPossession={ballPossession}/>
                     <PassIsComplete register={register} value={watch()}/>
-                    <Reciever register={register} value={watch()} homeTeamData={homeTeamData[0]}/>
-                    <Runner register={register} value={watch()}/>
+                    <Reciever register={register} value={watch()} homeTeamData={homeTeamData[0]} awayTeamData={awayTeamData[0]} ballPossession={ballPossession}/>
+                    <Runner register={register} value={watch()} homeTeamData={homeTeamData[0]} awayTeamData={awayTeamData[0]} ballPossession={ballPossession} />
                     <GainYards register={register} value={watch()}/>
                     <Result register={register} value={watch()}/>
                     <Interception register={register} value={watch()}/>
-                    <Kicker register={register} value={watch()}/>
-                    <Punter register={register} value={watch()}/>
+                    <Kicker register={register} value={watch()} homeTeamData={homeTeamData[0]} awayTeamData={awayTeamData[0]} ballPossession={ballPossession}/>
+                    <Punter register={register} value={watch()} homeTeamData={homeTeamData[0]} awayTeamData={awayTeamData[0]} ballPossession={ballPossession}/>
                     <KickDistance register={register} value={watch()}/>
                     <PuntDistance register={register} value={watch()}/>
                     <ReturnYards register={register} value={watch()}/>
                     <KickIsGood register={register} value={watch()}/>
                     <KickResult register={register} value={watch()}/>
-                    <Returner register={register} value={watch()}/>
-                    <Tackler register={register}/>
+                    <Returner register={register} value={watch()} homeTeamData={homeTeamData[0]} awayTeamData={awayTeamData[0]} ballPossession={ballPossession}/>
+                    <Tackler register={register} value={watch()} homeTeamData={homeTeamData[0]} awayTeamData={awayTeamData[0]} ballPossession={ballPossession}/>
                     <TOReturnYards register={register} value={watch()}/>
                     <div className='mt-2'>
                         <button type='submit' className='btn btn-lg btn-primary'>完了</button>

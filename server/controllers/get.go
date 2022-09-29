@@ -102,7 +102,7 @@ func GetLatestPlay(c *gin.Context) {
 func GetAllTeamInfo(c *gin.Context) {
 	db := database.Db()
 	teamInfo := []models.TeamInfo{}
-	result := db.Preload("Positions.Athletes").Find(&teamInfo)
+	result := db.Preload("OffensePositions.OffenseAthletes").Preload("DefensePositions.DefenseAthletes").Preload("KickingPositions.KickingAthletes").Find(&teamInfo)
 
 	fmt.Println("GET!")
 	//result := db.Last(&practices1)
@@ -126,13 +126,14 @@ func GetTeamInfo(c *gin.Context) {
 	}
 	c.IndentedJSON(http.StatusOK, result)
 }
+
 func GetSingleTeamByName(c *gin.Context) {
 	db := database.Db()
 	var singleTeamInfo []models.TeamInfo
 	// id, _ := strconv.Atoi(c.Param("id"))
 	name := c.Param("name")
 	// paramsでエンドポイントにあるパラメータをidに格納している
-	result := db.Where("team_name = ?", name).Preload("Positions.Athletes").First(&singleTeamInfo)
+	result := db.Where("team_name = ?", name).Preload("OffensePositions.OffenseAthletes").Preload("DefensePositions.DefenseAthletes").Preload("KickingPositions.KickingAthletes").First(&singleTeamInfo)
 	// WHEREでidと一致するものをデータベースから探し、それをDELETEしている
 	fmt.Println("GET!")
 	//result := db.Last(&practices1)
@@ -147,6 +148,60 @@ func GetPositions(c *gin.Context) {
 	db := database.Db()
 	positions := []models.Position{}
 	result := db.Preload("Athletes").Find(&positions)
+
+	fmt.Println("GET!")
+	//result := db.Last(&practices1)
+	if result.Error != nil {
+		log.Fatal(result.Error)
+		fmt.Println("ERROR!")
+	}
+	c.IndentedJSON(http.StatusOK, result)
+}
+
+func GetOffensePositions(c *gin.Context) {
+	db := database.Db()
+	positions := []models.OffensePosition{}
+	result := db.Preload("OffenseAthletes").Find(&positions)
+
+	fmt.Println("GET!")
+	//result := db.Last(&practices1)
+	if result.Error != nil {
+		log.Fatal(result.Error)
+		fmt.Println("ERROR!")
+	}
+	c.IndentedJSON(http.StatusOK, result)
+}
+func GetKickingPositions(c *gin.Context) {
+	db := database.Db()
+	positions := []models.KickingPosition{}
+	result := db.Preload("KickingAthletes").Find(&positions)
+
+	fmt.Println("GET!")
+	//result := db.Last(&practices1)
+	if result.Error != nil {
+		log.Fatal(result.Error)
+		fmt.Println("ERROR!")
+	}
+	c.IndentedJSON(http.StatusOK, result)
+}
+func GetDefensePositions(c *gin.Context) {
+	db := database.Db()
+	positions := []models.DefensePosition{}
+	result := db.Preload("DefenseAthletes").Find(&positions)
+
+	fmt.Println("GET!")
+	//result := db.Last(&practices1)
+	if result.Error != nil {
+		log.Fatal(result.Error)
+		fmt.Println("ERROR!")
+	}
+	c.IndentedJSON(http.StatusOK, result)
+}
+
+func GetOffenseAthletes(c *gin.Context) {
+	db := database.Db()
+	athletes := []models.OffenseAthlete{}
+	result := db.Find(&athletes)
 
 	fmt.Println("GET!")
 	//result := db.Last(&practices1)
