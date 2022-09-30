@@ -26,43 +26,6 @@ const Interception:React.FC<Props> = ({data,ballPlace,ballPossession,setBallPlac
     var gainYards = data.to_return_yards
     var ballOn = data.turnover_yards
     SetYards({data,ballPossession,ballPlace,ballOn,gainYards,setBallOn,setBallPlace,state})
-
-    // if (ballPlace &&  ballPossession){
-    //     if (data.turnover_yards + data.to_return_yards <= 50){
-    //         setBallOn(data.turnover_yards + data.to_return_yards)
-    //         data.ball_on_result = data.turnover_yards + data.to_return_yards
-    //     }else{
-    //         setBallOn(100 - data.turnover_yards - data.to_return_yards)
-    //         data.ball_on_result = 100 - data.turnover_yards - data.to_return_yards
-    //         setBallPlace(!ballPlace)
-    //         state.BallPlaceResult = !state.BallPlaceResult
-    //     }
-
-    // }
-    // else if ((!ballPlace) && ballPossession){
-    //     setBallOn(data.turnover_yards - data.to_return_yards)
-    //     data.ball_on_result = data.turnover_yards - data.to_return_yards
-    // }
-    // console.log(ballPossession,ballPlace,2)
-
-    // if ((!ballPlace) && (!ballPossession)){
-    //     if (data.turnover_yards + data.to_return_yards <= 50){
-    //         setBallOn(data.turnover_yards + data.to_return_yards)
-    //         data.ball_on_result = data.turnover_yards + data.to_return_yards
-    //     }else{
-    //         setBallOn(100 - data.turnover_yards -data.to_return_yards)
-    //         data.ball_on_result = 100 - data.turnover_yards - data.to_return_yards
-    //         setBallPlace(!ballPlace)
-    //         state.BallPlaceResult = !state.BallPlaceResult
-    //     }
-    // }
-    // else if (ballPlace && (!ballPossession)){
-    //     setBallOn(prevBallOn => prevBallOn - data.to_return_yards)
-    //     data.ball_on_result = data.turnover_yards - data.to_return_yards
-    // }
-
-
-
   return null
 }
 

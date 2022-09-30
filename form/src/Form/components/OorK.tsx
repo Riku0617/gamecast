@@ -13,8 +13,6 @@ const OorK:React.FC<Props> = ({register}) => {
             <option value="Offense">Offense</option>
             <option value="Punt">Punt</option>
             <option value="FG">FG</option>
-            {/* <option value="TFP1">TFP(1P)</option>
-            <option value="TFP2">TFP(2P)</option> */}
         </select>
     </>
   )

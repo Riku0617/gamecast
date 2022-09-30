@@ -31,7 +31,6 @@ const Offense:React.FC<Props> = ({data,ballPlace,state,ballPossession,setBallOn,
         if(down === 4 && distance > data.yards_gained){
             EndMakeDrive({data,ballPossession,setBallPossession,setId,setDown,setDistance,setPlayAmount,setYardsDrived})
             setBallPossession(!ballPossession)
-            console.log("Gamble failed")
         }else{
             DownDistance({data,distance,setDown,down,setDistance})
         }

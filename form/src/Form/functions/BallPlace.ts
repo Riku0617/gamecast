@@ -2,6 +2,7 @@ import React from 'react'
 import { Game } from '../../GameForm/Alies'
 import { Play } from '../Alies'
 
+
 const BallPlace = (data:Play,ballPlace:boolean,ballPlaceResult:boolean,gameData:Game[]) => {
     console.log(ballPlaceResult,"FInal")
 

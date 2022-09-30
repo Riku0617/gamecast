@@ -26,16 +26,6 @@ const Punt:React.FC<Props> = ({data,ballOn,setBallOn,ballPlace,setBallPlace,stat
         var gainYards = data.punt_distance - data.return_yards
         SetYards({data,ballPossession,ballPlace,ballOn,gainYards,setBallOn,setBallPlace,state})
     }
-    // else if(ballOn+data.punt_distance-data.return_yards<=50){
-    //     setBallOn(ballOn+data.punt_distance-data.return_yards)
-    //     data.ball_on_result = ballOn+data.punt_distance-data.return_yards
-    // }else{
-    //     setBallOn(100 - (ballOn+data.punt_distance-data.return_yards))
-    //     data.ball_on_result = ballOn+data.punt_distance-data.return_yards
-    //     setBallPlace(!ballPlace)
-    //     state.BallPlaceResult = !state.BallPlaceResult
-    // }
-    
   return null
 }
 
