@@ -30,7 +30,7 @@ const Recierver:React.FC<Props3> = ({register,value,homeTeamData,awayTeamData,ba
       if (ballPossession){
         return (
           <>
-              <div className="mx-2 mt-2"><h5>Reciever</h5></div>
+              <div className="mx-2 mt-2"><h5>Receiver</h5></div>
                   <select {...register("reciever")} className="col-10 col-sm-3">
                     <option key={0} value="-">-</option>
                     {homePlayerList}
@@ -40,7 +40,7 @@ const Recierver:React.FC<Props3> = ({register,value,homeTeamData,awayTeamData,ba
       }else{
         return (
           <>
-              <div className="mx-2 mt-2"><h5>Reciever</h5></div>
+              <div className="mx-2 mt-2"><h5>Receiver</h5></div>
                   <select {...register("reciever")} className="col-10 col-sm-3">
                     <option key={0} value="-">-</option>
                     {awayPlayerList}

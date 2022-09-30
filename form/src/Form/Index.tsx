@@ -140,7 +140,7 @@ const Index:React.FC<Props1> = ({visible,homeTeam,awayTeam}) => {
                     <Runner register={register} value={watch()} homeTeamData={homeTeamData[0]} awayTeamData={awayTeamData[0]} ballPossession={ballPossession} />
                     <GainYards register={register} value={watch()}/>
                     <Result register={register} value={watch()}/>
-                    <Interception register={register} value={watch()}/>
+                    <Interception register={register} value={watch()} homeTeamData={homeTeamData[0]} awayTeamData={awayTeamData[0]} ballPossession={false}/>
                     <Kicker register={register} value={watch()} homeTeamData={homeTeamData[0]} awayTeamData={awayTeamData[0]} ballPossession={ballPossession}/>
                     <Punter register={register} value={watch()} homeTeamData={homeTeamData[0]} awayTeamData={awayTeamData[0]} ballPossession={ballPossession}/>
                     <KickDistance register={register} value={watch()}/>
