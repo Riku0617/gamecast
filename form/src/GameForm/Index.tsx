@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import {useForm} from "react-hook-form"
 import { Game, GameTeams, TeamList } from './Alies'
+import Conitos from './Conitos'
 import {HomeTeam,AwayTeam} from './EntryPoint'
 
 
@@ -17,6 +18,7 @@ const Index:React.FC<Props> = ({visible,setVisible,setHomeTeam,setAwayTeam}) => 
 
     const [teamList,setTeamList] = useState<TeamList[]>([])
     const [games,setGames] = useState<number>(1);
+    const [gaemData,setGameData] = useState<Game[]>([]);
 
 
     useEffect(() => {
@@ -57,7 +59,7 @@ const Index:React.FC<Props> = ({visible,setVisible,setHomeTeam,setAwayTeam}) => 
                     headers:{"Content-Type":"application/json"},
                     body: JSON.stringify({
                         game_id:games,
-                        ball_possession:data.hometeam
+                        ball_possession:data.cointos_result?data.hometeam:data.awayteam
                     })
                     }).then(() => {
                     console.log("Post initial drive!")
@@ -68,11 +70,22 @@ const Index:React.FC<Props> = ({visible,setVisible,setHomeTeam,setAwayTeam}) => 
                     })}>
                     <HomeTeam teamList={teamList} register={register}/>
                     <AwayTeam teamList={teamList} register={register}/>
+                    <Conitos teamList={teamList} register={register} value={watch()}/>
                     <div className='mt-2'>
                         <button type='submit' className='btn btn-lg btn-primary'>完了</button>
                     </div>
                 </form>
-                <form onSubmit={handleSubmit(() => {setVisible(false)})}>
+                <form onSubmit={handleSubmit(() => {
+                    setVisible(false)
+                    fetch("http://localhost:9091/games/latest", {method: 'GET'})
+                        .then(res => res.json())
+                        .then(async data => {
+                            setGameData(data["Value"])
+                    }).then(() => console.log("Form Set!")).then(() => {
+                        setHomeTeam(gaemData[0]?.hometeam)
+                        setAwayTeam(gaemData[0]?.awayteam)
+                    })
+                    })}>
                     <div className='mt-2'>
                         <button type='submit' className='btn btn-lg btn-primary'>PlayFormへ</button>
                     </div>

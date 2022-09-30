@@ -22,8 +22,7 @@ const Index:React.FC<Props1> = ({visible,homeTeam,awayTeam}) => {
 
     const [id,setId] = useState<number>(1);
     const [ballOn,setBallOn]=useState<number>(35);
-    const [ballPossession,setBallPossession]=useState<boolean>(true);
-    const [ballPlace,setBallPlace]=useState<boolean>(true);
+
     const [homePoints,setHomePoints] = useState<number>(0);
     const [awayPoints,setAwayPoints] = useState<number>(0);
     const [down,setDown] = useState<number>(1);
@@ -41,24 +40,24 @@ const Index:React.FC<Props1> = ({visible,homeTeam,awayTeam}) => {
     useEffect(() => {
         
         const f = async () =>{
-            await fetch("http://localhost:9091/games/latest", {method: 'GET'})
+            await fetch("http://localhost:9091/games/latest", {method: 'GET',headers:{"Content-Type":"application/json"},})
                 .then(res => res.json())
                 .then(async data => {
                     setGameData(data["Value"])
                     console.log(data["Value"]["awayteam"])
                 }).then(() => console.log("fetch gamedata")).then(() => { 
                 })
-            await fetch("http://localhost:9091/teaminfo/"+homeTeam, {method: 'GET'})
+            await fetch("http://localhost:9091/teaminfo/"+homeTeam, {method: 'GET',headers:{"Content-Type":"application/json"},})
                         .then(res => res.json())
                         .then(async data => {
                             setHomeTeamData(data["Value"])
                         }).then(() => console.log("fetch home"))
-            await fetch("http://localhost:9091/teaminfo/"+awayTeam, {method: 'GET'})
+            await fetch("http://localhost:9091/teaminfo/"+awayTeam, {method: 'GET',headers:{"Content-Type":"application/json"},})
                         .then(res => res.json())
                         .then(async data => {
                             setAwayTeamData(data["Value"])
                         }).then(() => console.log("fetch away"))
-            await fetch("http://localhost:9091/drives/latest", {method: 'GET'})
+            await fetch("http://localhost:9091/drives/latest", {method: 'GET',headers:{"Content-Type":"application/json"},})
                 .then(res => res.json())
                 .then(async data => {
                     setDriveData(data["Value"])
@@ -68,6 +67,9 @@ const Index:React.FC<Props1> = ({visible,homeTeam,awayTeam}) => {
         f();
         
     },[])
+
+    const [ballPossession,setBallPossession]=useState<boolean>(gameData[0]?.cointos_result);
+    const [ballPlace,setBallPlace]=useState<boolean>(gameData[0]?.cointos_result);
 
     return (
         <div className="">

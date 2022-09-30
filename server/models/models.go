@@ -8,6 +8,7 @@ type Game struct {
 	AwayTeam      string `json:"awayteam"`
 	HomeTeamScore int
 	AwayTeamScore int
+	CointosResult bool `json:"cointos_result"`
 	// HomeTeamPossession int
 	// AwayTeamPossession int
 	// PassingYards int

@@ -59,6 +59,7 @@ export type Game = {
 	awayteam:string 
 	hometeam_score:number
     awayteam_score:number
+	cointos_result:boolean
 	// HomeTeamPossession int
 	// AwayTeamPossession int
 	// PassingYards int

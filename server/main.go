@@ -3,6 +3,7 @@ package main
 import (
 	"server/controllers"
 	"server/database"
+	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -16,17 +17,24 @@ func main() {
 	config := cors.DefaultConfig()
 	config.AllowAllOrigins = true
 
-	router.Use(cors.New(config))
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowMethods:     []string{"PUT", "POST", "GET", "DELETE"},
+		AllowHeaders:     []string{"Content-Type"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 
 	router.GET("/plays", controllers.GetPlays)
 	router.POST("/plays", controllers.PostPlay)
 	router.GET("/plays/latest", controllers.GetLatestPlay)
+
 	router.GET("/drives", controllers.GetDrives)
 	router.GET("/drives/latest", controllers.GetLatestDrive)
 	router.POST("/drives", controllers.PostDrive)
 	router.PUT("/drives/latest", controllers.UpdateLatestDrive)
-	router.POST("/games", controllers.PostGame)
-	router.GET("./games", controllers.GetGames)
+
 	router.POST("/teaminfo", controllers.PostTeamInfo)
 	router.POST("/position", controllers.PostPosition)
 	router.POST("/athlete", controllers.PostAthlete)
@@ -35,6 +43,9 @@ func main() {
 	router.GET("/teaminfo/:name", controllers.GetSingleTeamByName)
 	router.GET("/position", controllers.GetPositions)
 	router.GET("/athlete", controllers.GetAthletes)
+
+	router.POST("/games", controllers.PostGame)
+	router.GET("./games", controllers.GetGames)
 	router.GET("/games/latest", controllers.GetLatestGame)
 
 	router.POST("/athletes/defense", controllers.PostDefenseAthlete)

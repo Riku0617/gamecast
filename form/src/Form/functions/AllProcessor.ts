@@ -34,7 +34,6 @@ const Allprocessor:React.FC<Props> = ({data,ballPlace,ballPossession,ballOn,down
     // BallOnのヤードに関して、Offenceでgainした時の処理
     if (data.o_or_k === "Offense"){
         Offense({data,ballPlace,state,ballPossession,setBallOn,ballOn,setBallPlace,down,distance,setBallPossession,setId,setDown,setDistance,setPlayAmount,setYardsDrived})
-        //BallPosition({data,ballPlace,state,ballPossession,setBallOn,ballOn,setBallPlace})
     }
     
 
@@ -69,8 +68,8 @@ const Allprocessor:React.FC<Props> = ({data,ballPlace,ballPossession,ballOn,down
 
     // ボール保持チームが変わった時の処理
     PossessionTeam(data,ballPossession,gameData);
-    // Ballがどちらの陣地にあるかに関する処理
 
+    // Ballがどちらの陣地にあるかに関する処理
     BallPlace(data,ballPlace,state.BallPlaceResult,gameData)
     
   return null
