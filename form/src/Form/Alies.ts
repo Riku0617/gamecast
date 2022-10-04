@@ -1,7 +1,6 @@
 
 
 export type Play = {
-
     drive_id        :number  
     hometeam       :string
     awayteam       :string

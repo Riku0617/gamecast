@@ -6,9 +6,9 @@ type Game struct {
 	gorm.Model
 	HomeTeam      string `json:"hometeam"`
 	AwayTeam      string `json:"awayteam"`
-	HomeTeamScore int
-	AwayTeamScore int
-	CointosResult bool `json:"cointos_result"`
+	HomeTeamScore int    `json:"hometeam_score"`
+	AwayTeamScore int    `json:"awayteam_score"`
+	CointosResult bool   `json:"cointos_result"`
 	// HomeTeamPossession int
 	// AwayTeamPossession int
 	// PassingYards int

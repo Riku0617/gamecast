@@ -3,13 +3,13 @@ import { Props2, Props3 } from './Alies';
 
 const Returner:React.FC<Props3> = ({register,value,homeTeamData,awayTeamData,ballPossession}) => {
 
-  const homePlayerList = homeTeamData?.KickingPositions.map((position)=>
-        position?.KickingAthletes.map((athlete)=>
+  const homePlayerList = homeTeamData?.KickingPositions?.map((position)=>
+        position?.KickingAthletes?.map((athlete)=>
       <option value={athlete.full_name}>{athlete.jersey} {athlete.full_name}</option>
       ))
 
-  const awayPlayerList = awayTeamData?.KickingPositions.map((position)=>
-      position?.KickingAthletes.map((athlete)=>
+  const awayPlayerList = awayTeamData?.KickingPositions?.map((position)=>
+      position?.KickingAthletes?.map((athlete)=>
       <option value={athlete.full_name}>{athlete.jersey} {athlete.full_name}</option>
     ))
 

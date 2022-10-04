@@ -6,6 +6,8 @@ import { PossessionTeam,BallPlace, Punt,EndMakeDrive, GetPoints,KickOff, Interce
 
 type Props = {
     data:Play
+    homeTeam:string
+    awayTeam:string
     ballPlace:boolean
     ballPossession:boolean
     ballOn:number
@@ -24,7 +26,7 @@ type Props = {
     setAwayPoints:React.Dispatch<React.SetStateAction<number>>
 }
 
-const Allprocessor:React.FC<Props> = ({data,ballPlace,ballPossession,ballOn,down,distance,setPlayAmount,setYardsDrived, gameData,setBallPlace,setBallPossession,setBallOn,setId,setDown,setDistance,setHomePoints,setAwayPoints}) => {
+const Allprocessor:React.FC<Props> = ({data,homeTeam,awayTeam,ballPlace,ballPossession,ballOn,down,distance,setPlayAmount,setYardsDrived, gameData,setBallPlace,setBallPossession,setBallOn,setId,setDown,setDistance,setHomePoints,setAwayPoints}) => {
 
     var state = {
         BallPlaceResult:ballPlace
@@ -67,10 +69,10 @@ const Allprocessor:React.FC<Props> = ({data,ballPlace,ballPossession,ballOn,down
     }
 
     // ボール保持チームが変わった時の処理
-    PossessionTeam(data,ballPossession,gameData);
+    PossessionTeam(data,ballPossession,homeTeam,awayTeam);
 
     // Ballがどちらの陣地にあるかに関する処理
-    BallPlace(data,ballPlace,state.BallPlaceResult,gameData)
+    BallPlace(data,ballPlace,state.BallPlaceResult,homeTeam,awayTeam)
     
   return null
 }

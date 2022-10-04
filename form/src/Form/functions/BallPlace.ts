@@ -3,18 +3,18 @@ import { Game } from '../../GameForm/Alies'
 import { Play } from '../Alies'
 
 
-const BallPlace = (data:Play,ballPlace:boolean,ballPlaceResult:boolean,gameData:Game[]) => {
+const BallPlace = (data:Play,ballPlace:boolean,ballPlaceResult:boolean,homeTeam:string,awayTeam:string) => {
     console.log(ballPlaceResult,"FInal")
 
     if (ballPlace){
-        data.ball_place = gameData[0].hometeam
+        data.ball_place = homeTeam
     }else{
-        data.ball_place = gameData[0].awayteam
+        data.ball_place = awayTeam
     }
     if (ballPlaceResult){
-        data.ball_place_result = gameData[0].hometeam
+        data.ball_place_result = homeTeam
     }else{
-        data.ball_place_result = gameData[0].awayteam
+        data.ball_place_result = awayTeam
     }
   return null
 }

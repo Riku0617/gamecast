@@ -2,11 +2,11 @@ import React from 'react'
 import { Game } from '../../GameForm/Alies'
 import { Play } from '../Alies'
 
-const PossessionTeam = (data:Play,ballPossession:boolean,gameData:Game[]) => {
+const PossessionTeam = (data:Play,ballPossession:boolean,homeTeam:string,awayTeam:string) => {
     if (ballPossession){
-        data.ball_possession = gameData[0].hometeam
+        data.ball_possession = homeTeam
     }else{
-        data.ball_possession = gameData[0].awayteam
+        data.ball_possession = awayTeam
     }
 }
 

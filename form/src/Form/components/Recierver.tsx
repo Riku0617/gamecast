@@ -5,24 +5,24 @@ import {  Props3 } from './Alies';
 const Recierver:React.FC<Props3> = ({register,value,homeTeamData,awayTeamData,ballPossession})=> {
     console.log(homeTeamData?.OffensePositions,"ff")
 
-    const homePlayerList = homeTeamData?.OffensePositions.map((position)=>
-        position?.OffenseAthletes.map((athlete)=>
+    const homePlayerList = homeTeamData?.OffensePositions?.map((position)=>
+        position?.OffenseAthletes?.map((athlete)=>
       // {position.position_name==="Wide Receiver" &&
       <option value={athlete.full_name}>{athlete.jersey} {athlete.full_name}</option>
       // }
       ))
-    const aPlayerList = homeTeamData?.OffensePositions.map((position)=>
-      position?.OffenseAthletes.map((athlete)=>
-    // {position.PositionName==="Wide Receiver"? 
-      console.log(position.position_name)
-    // }
-    ))
+    // const aPlayerList = homeTeamData?.OffensePositions?.map((position)=>
+    //   position?.OffenseAthletes?.map((athlete)=>
+    // // {position.PositionName==="Wide Receiver"? 
+    //   console.log(position.position_name)
+    // // }
+    // ))
       
       // position.Offense  map((athlete)=>
       // <option value={athlete.full_name}>{athlete.jersey}</option>))
 
-    const awayPlayerList = awayTeamData?.OffensePositions.map((position)=>
-      position?.OffenseAthletes.map((athlete)=>
+    const awayPlayerList = awayTeamData?.OffensePositions?.map((position)=>
+      position?.OffenseAthletes?.map((athlete)=>
       <option value={athlete.full_name}>{athlete.jersey} {athlete.full_name}</option>
     ))
 
