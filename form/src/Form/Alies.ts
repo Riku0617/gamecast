@@ -7,12 +7,16 @@ export type Play = {
     hometeam_points :number
     awayteam_points :number
     ball_possession :string 
+    ball_possession_bool:boolean
     ball_place      :string
     ball_place_result:string
+    ball_place_result_bool:boolean
     ball_on         :number
     ball_on_result:number
     down            :number
     distance        :number
+    down_result     :number
+    distance_result :number
     o_or_k          :string 
     play_type       :string 
     passer          :string 

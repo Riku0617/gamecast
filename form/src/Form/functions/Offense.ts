@@ -7,6 +7,8 @@ type Props = {
     setBallOn:React.Dispatch<React.SetStateAction<number>>
     ballOn:number
     ballPossession:boolean
+    homeTeam:string
+    awayTeam:string
     ballPlace:boolean
     state : {
         BallPlaceResult:boolean
@@ -15,21 +17,22 @@ type Props = {
     down:number
     distance:number
     setBallPossession:React.Dispatch<React.SetStateAction<boolean>>
-    setId:React.Dispatch<React.SetStateAction<number>>
+    setDriveId:React.Dispatch<React.SetStateAction<number>>
     setDown:React.Dispatch<React.SetStateAction<number>>
     setDistance:React.Dispatch<React.SetStateAction<number>>
     setPlayAmount:React.Dispatch<React.SetStateAction<number>>
     setYardsDrived:React.Dispatch<React.SetStateAction<number>>
 }
 
-const Offense:React.FC<Props> = ({data,ballPlace,state,ballPossession,setBallOn,ballOn,setBallPlace,down,distance,setBallPossession,setId,setDown,setDistance,setPlayAmount,setYardsDrived}) => {
+const Offense:React.FC<Props> = ({data,ballPlace,state,ballPossession,homeTeam,awayTeam,setBallOn,ballOn,setBallPlace,down,distance,setBallPossession,setDriveId,setDown,setDistance,setPlayAmount,setYardsDrived}) => {
 
+    //なんでこれやったんだろう
     var gainYards = data.yards_gained
     SetYards({data,ballPossession,ballPlace,ballOn,gainYards,setBallOn,setBallPlace,state})
 
     if (data.o_or_k == "Offense"){
         if(down === 4 && distance > data.yards_gained){
-            EndMakeDrive({data,ballPossession,setBallPossession,setId,setDown,setDistance,setPlayAmount,setYardsDrived})
+            EndMakeDrive({data,ballPossession,homeTeam,awayTeam,setBallPossession,setDriveId,setDown,setDistance,setPlayAmount,setYardsDrived})
             setBallPossession(!ballPossession)
         }else{
             DownDistance({data,distance,setDown,down,setDistance})

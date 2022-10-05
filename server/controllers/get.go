@@ -87,7 +87,7 @@ func GetLatestGame(c *gin.Context) {
 
 func GetLatestPlay(c *gin.Context) {
 	db := database.Db()
-	play := models.Play{}
+	play := []models.Play{}
 	result := db.Last(&play)
 
 	fmt.Println("GET!")

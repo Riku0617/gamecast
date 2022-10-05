@@ -15,16 +15,23 @@ type Props = {
     reception:boolean
     setReception:React.Dispatch<React.SetStateAction<boolean>>
     teamList:TeamList[]
-    setTeamList: React.Dispatch<React.SetStateAction<TeamList[]>>
-    games: number
-    setGames: React.Dispatch<React.SetStateAction<number>>
+    gameCount: number
+    setGameCount: React.Dispatch<React.SetStateAction<number>>
     gameData: Game[]
     setGameData: React.Dispatch<React.SetStateAction<Game[]>>
     setHomeTeamData:React.Dispatch<React.SetStateAction<TeamList[]>>
     setAwayTeamData:React.Dispatch<React.SetStateAction<TeamList[]>>
+    setYardsDrives:React.Dispatch<React.SetStateAction<number>>
+    setPlayAmount:React.Dispatch<React.SetStateAction<number>>
+    setBallPossession:React.Dispatch<React.SetStateAction<boolean>>
+    setBallPlace:React.Dispatch<React.SetStateAction<boolean>>
+    setDriveId:React.Dispatch<React.SetStateAction<number>>
+    setBallOn:React.Dispatch<React.SetStateAction<number>>
+    setDown:React.Dispatch<React.SetStateAction<number>>
+    setDistance:React.Dispatch<React.SetStateAction<number>>
 }
 
-const Index:React.FC<Props> = ({visible,setVisible,homeTeam,setHomeTeam,awayTeam,setAwayTeam,reception,setReception,teamList,setTeamList,games,setGames,gameData,setGameData,setHomeTeamData,setAwayTeamData}) => {
+const Index:React.FC<Props> = ({visible,setVisible,homeTeam,setHomeTeam,awayTeam,setAwayTeam,reception,setReception,teamList,gameCount,setGameCount,gameData,setGameData,setHomeTeamData,setAwayTeamData,setYardsDrives,setPlayAmount,setBallPlace,setBallPossession,setDriveId,setBallOn,setDown,setDistance}) => {
 
 
     const handleSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
@@ -35,7 +42,8 @@ const Index:React.FC<Props> = ({visible,setVisible,homeTeam,setHomeTeam,awayTeam
             headers:{"Content-Type":"application/json"},
             body: JSON.stringify({
                 hometeam:homeTeam,
-                awayteam:awayTeam
+                awayteam:awayTeam,
+                cointos_result: reception,
             })
         }).then(() => {
             console.log("success!")
@@ -43,25 +51,48 @@ const Index:React.FC<Props> = ({visible,setVisible,homeTeam,setHomeTeam,awayTeam
         fetch("http://localhost:9091/drives",{
         method:"POST",
         body: JSON.stringify({
-            game_id:games,
+            game_id:gameCount,
             ball_possession:reception?homeTeam:awayTeam
         })
         }).then(() => {
         console.log("Post initial drive!")
-        setGames(prevGames => prevGames + 1)
+        setGameCount(prevGames => prevGames + 1)
         })
     }
 
-    const handleSubmit2 = () => {
+    const handleSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         setVisible(false)
         fetch("http://localhost:9091/games/latest", {method: 'GET'})
             .then(res => res.json())
             .then(async data => {
                 setGameData(data["Value"])
-                setReception(data["Value"]["cointos_result"])
+                setReception(data["Value"][0]["cointos_result"])
                 setHomeTeam(gameData[0]?.hometeam)
                 setAwayTeam(gameData[0]?.awayteam)
+                setBallPossession(data["Value"][0]["cointos_result"])
+                setBallPlace(data["Value"][0]["cointos_result"])
         }).then(() => console.log("Form Set!"))
+
+        fetch("http://localhost:9091/drives/latest", {method: 'GET'})
+            .then(res => res.json())
+            .then(async data => {
+                setYardsDrives(data["Value"][0]["yards_drived"])
+                setPlayAmount(data["Value"][0]["amount_of_play"])
+                setDriveId(data["Value"][0]["ID"])
+                console.log(data["Value"][0]["ID"],"id")
+                }).then(() => console.log("Form Set!"))
+
+        fetch("http://localhost:9091/plays/latest", {method: 'GET'})
+            .then(res => res.json())
+            .then(async data => {
+                setBallPossession(data["Value"][0]["ball_possession_bool"])
+                setBallPlace(data["Value"][0]["ball_place_result_bool"])
+                setBallOn(data["Value"][0]["ball_on_result"])
+                setDown(data["Value"][0]["down_result"])
+                setDistance(data["Value"][0]["distance_result"])
+        }).then(() => console.log("Form Set!"))
+
         fetch("http://localhost:9091/teaminfo/"+homeTeam, {method: 'GET',headers:{"Content-Type":"application/json"},})
             .then(res => res.json())
             .then(async data => {
@@ -95,7 +126,7 @@ const Index:React.FC<Props> = ({visible,setVisible,homeTeam,setHomeTeam,awayTeam
                         <button type='submit' className='btn btn-lg btn-primary'>完了</button>
                     </div>
                 </form>
-                <form onSubmit={() => handleSubmit2()}>
+                <form onSubmit={(e) => handleSubmit2(e)}>
                     <div className='mt-2'>
                         <button type='submit' className='btn btn-lg btn-primary'>PlayFormへ</button>
                     </div>

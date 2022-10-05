@@ -12,6 +12,7 @@ const Conitos:React.FC<Props> = ({homeTeam,awayTeam,setReception}) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setReception(Boolean(e.target.value))
+        console.log(Boolean(e.target.value),"conintos")
     }
 
     return (

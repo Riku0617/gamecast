@@ -15,8 +15,8 @@ type Props1 = {
     handleSubmit:UseFormHandleSubmit<Play>
     watch:UseFormWatch<Play>
     reset:UseFormReset<Play>
-    id:number
-    setId:React.Dispatch<React.SetStateAction<number>>
+    driveId:number
+    setDriveId:React.Dispatch<React.SetStateAction<number>>
     ballOn: number
     setBallOn: React.Dispatch<React.SetStateAction<number>>
     homePoints: number
@@ -45,64 +45,10 @@ type Props1 = {
     setBallPlace: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Index:React.FC<Props1> = ({visible,homeTeam,awayTeam,register,handleSubmit,watch,reset,id,setId,ballOn,setBallOn,homePoints,setHomePoints,awayPoints,setAwayPoints,down,setDown,distance,setDistance,yardsDrived,setYardsDrived,playAmount,setPlayAmount,gameData,setGameData,driveData,setDriveData,homeTeamData,setHomeTeamData,awayTeamData,setAwayTeamData,ballPossession,setBallPossession,ballPlace,setBallPlace}) => {
+const Index:React.FC<Props1> = ({visible,homeTeam,awayTeam,register,handleSubmit,watch,reset,driveId,setDriveId,ballOn,setBallOn,homePoints,setHomePoints,awayPoints,setAwayPoints,down,setDown,distance,setDistance,yardsDrived,setYardsDrived,playAmount,setPlayAmount,gameData,setGameData,driveData,setDriveData,homeTeamData,setHomeTeamData,awayTeamData,setAwayTeamData,ballPossession,setBallPossession,ballPlace,setBallPlace}) => {
 
     if(visible){return null}
     console.log(homeTeam,awayTeam,"pp")
-
-    // const { register ,handleSubmit,watch } = useForm<Play>();
-
-    // const [id,setId] = useState<number>(1);
-    // const [ballOn,setBallOn]=useState<number>(35);
-
-    // const [homePoints,setHomePoints] = useState<number>(0);
-    // const [awayPoints,setAwayPoints] = useState<number>(0);
-    // const [down,setDown] = useState<number>(1);
-    // const [distance,setDistance] = useState<number>(10);
-  
-
-    // const [yardsDrived,setYardsDrived] = useState<number>(0);
-    // const [playAmount,setPlayAmount] = useState<number>(0);
-
-    // const [gameData,setGameData] = useState<Game[]>([])
-    // const [driveData,setDriveData] =useState<Drive[]>([])
-    // const [homeTeamData,setHomeTeamData] = useState<TeamList[]>([])
-    // const [awayTeamData,setAwayTeamData] = useState<TeamList[]>([])
-    // console.log(homeTeam)
-    // useEffect(() => {
-        
-    //     const f = async () =>{
-    //         await fetch("http://localhost:9091/games/latest", {method: 'GET',headers:{"Content-Type":"application/json"},})
-    //             .then(res => res.json())
-    //             .then(async data => {
-    //                 setGameData(data["Value"])
-    //                 console.log(data["Value"]["awayteam"])
-    //             }).then(() => console.log("fetch gamedata")).then(() => { 
-    //             })
-    //         await fetch("http://localhost:9091/teaminfo/"+homeTeam, {method: 'GET',headers:{"Content-Type":"application/json"},})
-    //                     .then(res => res.json())
-    //                     .then(async data => {
-    //                         setHomeTeamData(data["Value"])
-    //                         console.log(data["Value"],"a")
-    //                     }).then(() => console.log("fetch home"))
-    //         await fetch("http://localhost:9091/teaminfo/"+awayTeam, {method: 'GET',headers:{"Content-Type":"application/json"},})
-    //                     .then(res => res.json())
-    //                     .then(async data => {
-    //                         setAwayTeamData(data["Value"])
-    //                     }).then(() => console.log("fetch away"))
-    //         await fetch("http://localhost:9091/drives/latest", {method: 'GET',headers:{"Content-Type":"application/json"},})
-    //             .then(res => res.json())
-    //             .then(async data => {
-    //                 setDriveData(data["Value"])
-    //             }).then(() => console.log("fetch drivedata")).then(() => { 
-    //             })
-    //     }
-    //     f();
-        
-    // },[])
-
-    // const [ballPossession,setBallPossession]=useState<boolean>(gameData[0]?.cointos_result);
-    // const [ballPlace,setBallPlace]=useState<boolean>(gameData[0]?.cointos_result);
 
     return (
         <div className="">
@@ -120,6 +66,7 @@ const Index:React.FC<Props1> = ({visible,homeTeam,awayTeam,register,handleSubmit
                         method:"PUT",
                         headers:{"Content-Type":"application/json"},
                         body: JSON.stringify({
+                            ball_possession:ballPossession?homeTeam:awayTeam,
                             amount_of_play: playAmount+1,
                             yards_drived: yardsDrived + data.yards_gained,
                         })
@@ -130,14 +77,15 @@ const Index:React.FC<Props1> = ({visible,homeTeam,awayTeam,register,handleSubmit
                     setPlayAmount(prevPlays => prevPlays + 1)
                     setYardsDrived(prev => prev + data.yards_gained)
 
-                    AllProcessor({ data,homeTeam,awayTeam, ballPlace, ballPossession, ballOn, down, distance,setPlayAmount,setYardsDrived, gameData, setBallPlace, setBallPossession, setBallOn, setId, setDown, setDistance, setHomePoints, setAwayPoints })
+                    AllProcessor({ data,homeTeam,awayTeam, ballPlace, ballPossession, ballOn, down, distance,setPlayAmount,setYardsDrived, gameData, setBallPlace, setBallPossession, setBallOn, setDriveId, setDown, setDistance, setHomePoints, setAwayPoints })
 
-                    data.drive_id = id
+                    data.drive_id = driveId
                     data.ball_on = ballOn
                     data.hometeam_points = homePoints
                     data.awayteam_points = awayPoints
                     data.down = down
                     data.distance = distance
+                    data.ball_possession_bool = ballPossession
 
                     await fetch("http://localhost:9091/plays",{
                         method:"POST",
@@ -148,7 +96,7 @@ const Index:React.FC<Props1> = ({visible,homeTeam,awayTeam,register,handleSubmit
                         console.log(data.ball_on)  
                         console.log(data.ball_on_result)
                         if ( data.o_or_k === "FG"|| data.o_or_k === "TFP"){
-                            setId(prevId => prevId + 1)}
+                            setDriveId(prevId => prevId + 1)}
                     })
                     reset();
                     })}>

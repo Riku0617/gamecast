@@ -32,9 +32,6 @@ const Punt:React.FC<Props> = ({data,ballOn,setBallOn,ballPlace,setBallPlace,stat
 export default Punt
 
 
-function ballPossession(ballPossession: any, ballPlace: boolean, ballOn: number, arg3: number, setBallOn: React.Dispatch<React.SetStateAction<number>>, setBallPlace: React.Dispatch<React.SetStateAction<boolean>>) {
-    throw new Error('Function not implemented.')
-}
 // ボール持ってるチームが変わる
 // ボールの場所が変わる
 // TBなら20yds
